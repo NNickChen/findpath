@@ -64,11 +64,32 @@ int dijs(string location,string object)
 		{
 			string name=graph[node][i].name;
 			int costToChild=graph[node][i].costToChild;
-			nodeInfo[name].costs=min(nodeInfo[name].costs,nodeInfo[node].costs+costToChild);
+			// nodeInfo[name].costs=min(nodeInfo[name].costs,nodeInfo[node].costs+costToChild);
+			if(nodeInfo[node].costs+costToChild<nodeInfo[name].costs)
+			{
+				nodeInfo[name].costs=nodeInfo[node].costs+costToChild;
+				nodeInfo[name].fa=node;
+			}
 		}
 		nodeInfo[node].vis=true;
 	}
 	return nodeInfo[object].costs;
+}
+
+void printpath(string object)
+{
+	if(nodeInfo[object].fa.empty())
+	{
+		cout<<object;
+		if(!graph[object].empty())
+		cout<<"->";
+		return;
+	}
+	printpath(nodeInfo[object].fa);
+	cout<<object;
+	if(!graph[object].empty())
+	cout<<"->";
+	return;
 }
 
 int main()
@@ -99,10 +120,13 @@ int main()
 	nodeInfo[location].costs=0;
 	nodeInfo[object].costs=INF;
 	nodeInfo[object].vis=false;
-	// traverse();
+	// traverse();b
 	int total=dijs(location,object);
 	if(total<INF)
-	cout<<"You need at least "<<total<<" "<<unit<<"(s) to get there.\n";
+	{
+		cout<<"You need at least "<<total<<" "<<unit<<((total==1)?" ":"s ")<<"to get there.\n";
+		printpath(object);
+	}
 	else cout<<"You can't get there!\n";
 	return 0;
 }
