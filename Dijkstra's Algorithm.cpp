@@ -73,8 +73,8 @@ int dijs(string location,string object)
 
 int main()
 {
-	string location,object;
-	cin>>location>>object;
+	string location,object,unit;
+	cin>>location>>object>>unit;
 	while(1)
 	{
 		string name;
@@ -102,7 +102,7 @@ int main()
 	// traverse();
 	int total=dijs(location,object);
 	if(total<INF)
-	cout<<"You need at least "<<total<<" km to there.\n";
+	cout<<"You need at least "<<total<<" "<<unit<<"(s) to get there.\n";
 	else cout<<"You can't get there!\n";
 	return 0;
 }
