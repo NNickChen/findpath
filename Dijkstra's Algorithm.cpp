@@ -92,7 +92,7 @@ void printpath(string object)
 	return;
 }
 
-int main()
+int main(int argc, const char *argv[])
 {
 	string location,object,unit;
 	cin>>location>>object>>unit;
@@ -125,7 +125,12 @@ int main()
 	if(total<INF)
 	{
 		cout<<"You need at least "<<total<<" "<<unit<<((total==1)?" ":"s ")<<"to get there.\n";
-		printpath(object);
+		if(argc>1)
+		{
+			string parameter=argv[1];
+			if(parameter=="-p")
+			printpath(object);
+		}
 	}
 	else cout<<"You can't get there!\n";
 	return 0;
